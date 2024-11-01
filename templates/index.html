@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Detector Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        // Função de validação do formato do MAC address
+        function validateMAC() {
+            const macAddress = document.getElementById('mac_address').value.trim();
+            const macFormat = /^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$/;
+
+            if (!macFormat.test(macAddress)) {
+                alert("Invalid MAC address format. Please enter a valid format (e.g., XX:XX:XX:XX:XX:XX).");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Device Detector Control Panel</h1>
+
+        <!-- Formulário para adicionar um único dispositivo conhecido -->
+        <h2>Add a Known Device</h2>
+        <form action="/add_device" method="post" class="add-form" onsubmit="return validateMAC()">
+            <input type="text" id="mac_address" name="mac_address" placeholder="Enter MAC address" required>
+        </form>
+
+        <h2>Known Devices</h2>
+        <ul class="device-list">
+            {% for device in known_devices %}
+                <li>
+                    {{ device }}
+                    <form action="{{ url_for('remove_known', mac_address=device) }}" method="post" class="inline-form">
+                        <button type="submit" class="remove-button">✖</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="/clear_devices" method="get" class="clear-form">
+            <button type="submit" class="clear-button">Clear All Known Devices</button>
+        </form>
+
+        <!-- Lista de dispositivos detetados com opção de remover cada um -->
+        <h2>Detected Devices</h2>
+        <ul class="device-list">
+            {% for device in detected_devices %}
+                <li>
+                    {{ device }}
+                    <form action="{{ url_for('remove_detected', mac_address=device) }}" method="post" class="inline-form">
+                        <button type="submit" class="remove-button">✖</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="/clear_detected" method="get" class="clear-form">
+            <button type="submit" class="clear-button">Clear All Detected Devices</button>
+        </form>
+    </div>
+</body>
+</html>

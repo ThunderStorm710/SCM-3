@@ -1,0 +1,95 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Azul claro */
+    color: #2c3e50; /* Azul escuro */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    color: #1e90ff; /* Azul médio */
+    text-align: center;
+}
+
+.add-form, .clear-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.add-form input[type="text"] {
+    padding: 10px;
+    border: 1px solid #b0c4de;
+    border-radius: 4px;
+    width: 70%;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.device-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.device-list li {
+    background: #e6f2ff; /* Azul muito claro */
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    color: #2c3e50; /* Azul escuro */
+}
+
+.inline-form {
+    display: inline;
+}
+
+.remove-button {
+    background: none;
+    border: none;
+    color: #1e90ff; /* Azul médio */
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    color: #005f9e; /* Azul escuro */
+}
+
+.clear-button {
+    background-color: #1e90ff; /* Azul médio */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.clear-button:hover {
+    background-color: #005f9e; /* Azul escuro */
+}
+
+.alert {
+    color: #ffffff;
+    background-color: #1e90ff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
