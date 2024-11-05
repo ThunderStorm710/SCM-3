@@ -38,33 +38,32 @@ void subscribeCallback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Mensagem recebida no tópico: ");
   Serial.println(topic);
 
-  if (String(topic) == "detector/config") {
-    String message;
-    for (unsigned int i = 0; i < length; i++) {
-      message += (char)payload[i];
-    }
-
-    Serial.print("Nova lista de dispositivos conhecidos recebida: ");
-    Serial.println(message);
-
-    knownCount = 0;
-    int start = 0;
-    int end = message.indexOf(',');
-
-    while (end != -1 && knownCount < 10) {
-      knownDevices[knownCount++] = message.substring(start, end);
-      start = end + 1;
-      end = message.indexOf(',', start);
-    }
-    if (knownCount < 10 && start < message.length()) {
-      knownDevices[knownCount++] = message.substring(start);
-    }
-
-    Serial.println("Dispositivos conhecidos atualizados:");
-    for (int i = 0; i < knownCount; i++) {
-      Serial.println(knownDevices[i]);
-    }
+  String message;
+  for (unsigned int i = 0; i < length; i++) {
+    message += (char)payload[i];
   }
+
+  Serial.print("Nova lista de dispositivos conhecidos recebida: ");
+  Serial.println(message);
+
+  knownCount = 0;
+  int start = 0;
+  int end = message.indexOf(',');
+
+  while (end != -1 && knownCount < 10) {
+    knownDevices[knownCount++] = message.substring(start, end);
+    start = end + 1;
+    end = message.indexOf(',', start);
+  }
+  if (knownCount < 10 && start < message.length()) {
+    knownDevices[knownCount++] = message.substring(start);
+  }
+
+  Serial.println("Dispositivos conhecidos atualizados:");
+  for (int i = 0; i < knownCount; i++) {
+    Serial.println(knownDevices[i]);
+  }
+
 }
 
 
@@ -73,7 +72,7 @@ void reconnect() {
     Serial.print("A conectar ao broker MQTT...");
     if (client.connect("NodeMCU_Client", "thunder", "147258")) {   // Conecta com o ID "NodeMCU_Client"
       Serial.println("Conectado!");
-      client.subscribe("detector/config");       // Subscrição ao tópico
+      client.subscribe(mqtt_topic);       // Subscrição ao tópico
     } else {
       Serial.print("Falha, rc=");
       Serial.print(client.state());

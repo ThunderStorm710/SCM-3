@@ -42,24 +42,17 @@ void setOffModoPromicuo(){
   }
   client.loop();            // Mantém a comunicação com o broker ativa
 
-  // Publica uma mensagem a cada 5 segundos
-  static unsigned long lastMsg = 0;
+    static unsigned long lastMsg = 0;
   unsigned long now = millis();
   if (now - lastMsg > 5000) {            // Delay de 5 segundos
     lastMsg = now;
-
-
-    publishDetectedDevices();
-    client.setCallback(subscribeCallback);
-    client.subscribe("detector/config"); // Subscrever ao tópico
-
-
     Serial.println("FIZ O SUBSCRIBE");
-    delay(20000);
-
+    delay(5000);
     Serial.println("VOU LIGAR O MODO PROMISCUO");
     setOnModoPromicuo();
   }
+
+
 }
 
 

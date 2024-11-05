@@ -10,12 +10,18 @@ extern "C" {
 
 
 // Definições da rede Wi-Fi
-const char* ssid = "Pedro's Galaxy A53 5G";           // Insira o SSID da tua rede Wi-Fi
-const char* password = "12345678";   // Insira a password da tua rede Wi-Fi
+//const char* ssid = "Pedro's Galaxy A53 5G";           // Insira o SSID da tua rede Wi-Fi
+//const char* password = "12345678";   // Insira a password da tua rede Wi-Fi
+
+const char* ssid = "NVS";           // Insira o SSID da tua rede Wi-Fi
+const char* password = "Ns175411..";   // Insira a password da tua rede Wi-Fi
 
 // Definições do broker MQTT
-const char* mqtt_server = "192.168.255.74";    // IP do broker MQTT na tua máquina
-const int mqtt_port = 1883;                  // Porta padrão do broker MQTT
+//const char* mqtt_server = "192.168.255.74";    // IP do broker MQTT na tua máquina
+const char* mqtt_server = "192.168.1.5";    // IP do broker MQTT na tua máquina
+const int mqtt_port = 1883;
+const char *mqtt_topic = "detector/config";     // MQTT topic
+             // Porta padrão do broker MQTT
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -64,6 +70,8 @@ String knownDevices[] = {
 
 int detectedCount = 0; // Contador para dispositivos detetados
 int knownCount = 0;      // Contador de dispositivos conhecidos
+
+
 
 
 String detectedDevices[10];
