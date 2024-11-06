@@ -38,20 +38,27 @@ h1, h2 {
     font-size: 1em;
 }
 
-.device-list {
-    list-style-type: none;
-    padding: 0;
+/* Estilos para a tabela de dispositivos detetados */
+.device-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
 }
 
-.device-list li {
-    background: #e6f2ff; /* Azul muito claro */
+.device-table th, .device-table td {
+    border: 1px solid #b0c4de;
     padding: 10px;
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px;
-    color: #2c3e50; /* Azul escuro */
+    text-align: center;
+}
+
+.device-table th {
+    background-color: #1e90ff;
+    color: white;
+}
+
+.device-table td {
+    background: #e6f2ff; /* Azul muito claro */
+    color: #2c3e50;
 }
 
 .inline-form {
@@ -73,6 +80,7 @@ h1, h2 {
 .clear-button {
     background-color: #1e90ff; /* Azul médio */
     color: white;
+    margin-top: 10px;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
@@ -82,14 +90,4 @@ h1, h2 {
 
 .clear-button:hover {
     background-color: #005f9e; /* Azul escuro */
-}
-
-.alert {
-    color: #ffffff;
-    background-color: #1e90ff;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: bold;
 }

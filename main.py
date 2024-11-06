@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import paho.mqtt.client as mqtt
 import json
 import re
+from datetime import datetime
+
 
 app = Flask(__name__)
 
@@ -9,7 +11,7 @@ app = Flask(__name__)
 MQTT_BROKER = "localhost"
 MQTT_PORT = 1883
 CONFIG_TOPIC = "detector/config"
-DETECTED_TOPIC = "detected/config"
+DETECTED_TOPIC = "detected/#"
 
 # Listas de dispositivos conhecidos e detetados
 known_devices = []
@@ -32,10 +34,11 @@ def on_message(client, userdata, msg):
     device_info = msg.payload.decode()
     print(device_info)
     devices = device_info.split(",")
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for device in devices:
-        if device not in detected_devices:
-            detected_devices.append(device)
-            print(f"Novo dispositivo detectado: {device}")
+        if not any(d['mac'] == device for d in detected_devices):
+            detected_devices.append({"mac": device, "timestamp": current_time})
+            print(f"Novo dispositivo detectado: {device} em {current_time}")
 
 # Configura e conecta o cliente MQTT
 
@@ -91,7 +94,7 @@ def clear_devices():
 @app.route('/remove_detected/<mac_address>', methods=['POST'])
 def remove_detected(mac_address):
     global detected_devices
-    detected_devices = [device for device in detected_devices if device != mac_address]
+    detected_devices = [device for device in detected_devices if device['mac'] != mac_address]
     return redirect(url_for('index'))
 
 
